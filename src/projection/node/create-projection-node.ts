@@ -399,9 +399,8 @@ export function createProjectionNode<I>({
                         hasLayoutChanged,
                         layout: newLayout,
                     }: LayoutUpdateData) => {
-                        const dragControls = elementDragControls.get(
-                            visualElement
-                        )
+                        const dragControls =
+                            elementDragControls.get(visualElement)
                         if (dragControls?.isDragging) return
 
                         // TODO: Check here if an animation exists
@@ -410,9 +409,8 @@ export function createProjectionNode<I>({
                             visualElement.getDefaultTransition() ??
                             defaultLayoutTransition
 
-                        const {
-                            onLayoutAnimationComplete,
-                        } = visualElement.getProps()
+                        const { onLayoutAnimationComplete } =
+                            visualElement.getProps()
 
                         const targetChanged =
                             !this.targetLayout ||
@@ -493,8 +491,8 @@ export function createProjectionNode<I>({
             const { layoutId, layout } = this.options
             if (!layoutId && !layout) return
 
-            const transformTemplate = this.options.visualElement?.getProps()
-                .transformTemplate
+            const transformTemplate =
+                this.options.visualElement?.getProps().transformTemplate
             this.prevTransformTemplateValue = transformTemplate?.(
                 this.latestValues,
                 ""
@@ -566,8 +564,19 @@ export function createProjectionNode<I>({
             sync.preRender(this.updateProjection, false, true)
         }
 
-        scheduleUpdateFailedCheck() {
-            sync.postRender(this.checkUpdateFailed)
+        scheduleCheckAfterUnmount(nodeInLayoutGroup?: IProjectionNode) {
+            /**
+             * If the unmounting node is in a layoutGroup and did trigger a willUpdate,
+             * we manually call didUpdate to give a chance to the siblings to animate.
+             * Otherwise, cleanup all snapshots to prevents future nodes from reusing them.
+             */
+            sync.postRender(() => {
+                if (nodeInLayoutGroup?.isLayoutDirty) {
+                    this.didUpdate()
+                } else {
+                    this.checkUpdateFailed()
+                }
+            })
         }
 
         checkUpdateFailed = () => {
@@ -659,8 +668,8 @@ export function createProjectionNode<I>({
             const hasProjection =
                 this.projectionDelta && !isDeltaZero(this.projectionDelta)
 
-            const transformTemplate = this.options.visualElement?.getProps()
-                .transformTemplate
+            const transformTemplate =
+                this.options.visualElement?.getProps().transformTemplate
             const transformTemplateValue = transformTemplate?.(
                 this.latestValues,
                 ""
@@ -1128,7 +1137,10 @@ export function createProjectionNode<I>({
                 this.resumingFrom.preserveOpacity = undefined
             }
 
-            this.resumingFrom = this.currentAnimation = this.animationValues = undefined
+            this.resumingFrom =
+                this.currentAnimation =
+                this.animationValues =
+                    undefined
             this.getStack()?.exitAnimationComplete()
         }
 
@@ -1141,11 +1153,8 @@ export function createProjectionNode<I>({
         }
 
         applyTransformsToTarget() {
-            const {
-                targetWithTransforms,
-                target,
-                latestValues,
-            } = this.getLead()
+            const { targetWithTransforms, target, latestValues } =
+                this.getLead()
             if (!targetWithTransforms || !target) return
 
             copyBoxInto(targetWithTransforms, target)
@@ -1186,9 +1195,10 @@ export function createProjectionNode<I>({
 
             node.promote({
                 transition: node.options.initialPromotionConfig?.transition,
-                preserveFollowOpacity: node.options.initialPromotionConfig?.shouldPreserveFollowOpacity?.(
-                    node
-                ),
+                preserveFollowOpacity:
+                    node.options.initialPromotionConfig?.shouldPreserveFollowOpacity?.(
+                        node
+                    ),
             })
         }
 
@@ -1299,8 +1309,8 @@ export function createProjectionNode<I>({
                 styles.visibility = ""
             }
 
-            const transformTemplate = this.options.visualElement?.getProps()
-                .transformTemplate
+            const transformTemplate =
+                this.options.visualElement?.getProps().transformTemplate
 
             if (this.needsReset) {
                 this.needsReset = false

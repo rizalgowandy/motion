@@ -455,9 +455,9 @@ export interface IProjectionNode<I = unknown> {
     // (undocumented)
     root?: IProjectionNode;
     // (undocumented)
-    scheduleRender(notifyAll?: boolean): void;
+    scheduleCheckAfterUnmount(nodeInLayoutGroup?: IProjectionNode): void;
     // (undocumented)
-    scheduleUpdateFailedCheck(): void;
+    scheduleRender(notifyAll?: boolean): void;
     // (undocumented)
     scheduleUpdateProjection(): void;
     // (undocumented)
