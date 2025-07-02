@@ -1,7 +1,8 @@
 import type { BoundingBox, Box, Point } from "motion-utils"
 import type {
-    DOMKeyframesDefinition,
+    AnyResolvedKeyframe,
     InertiaOptions,
+    Target,
     TransformProperties,
     Transition,
 } from "../animation/types"
@@ -17,7 +18,7 @@ export interface EventInfo {
  * A generic set of string/number values
  */
 export interface ResolvedValues {
-    [key: string]: string | number
+    [key: string]: AnyResolvedKeyframe
 }
 
 export type AnimationDefinition =
@@ -45,7 +46,7 @@ export type AnimationDefinition =
  *
  * @public
  */
-export type TargetAndTransition = DOMKeyframesDefinition & {
+export type TargetAndTransition = Target & {
     transition?: Transition
     transitionEnd?: ResolvedValues
 }
@@ -216,7 +217,7 @@ export interface MotionNodeAnimationOptions {
      * Variants allow you to define animation states and organise them by name. They allow
      * you to control animations throughout a component tree by switching a single `animate` prop.
      *
-     * Using `transition` options like `delayChildren` and `staggerChildren`, you can orchestrate
+     * Using `transition` options like `delayChildren` and `when`, you can orchestrate
      * when children animations play relative to their parent.
 
      *
@@ -538,6 +539,11 @@ export interface MotionNodeTapHandlers {
      */
     globalTapTarget?: boolean
 }
+
+/**
+ * @deprecated - Use MotionNodeTapHandlers
+ */
+export interface TapHandlers extends MotionNodeTapHandlers {}
 
 export interface MotionNodeFocusHandlers {
     /**
@@ -961,6 +967,13 @@ export interface MotionNodeLayoutOptions {
      */
     layoutCrossfade?: boolean
 }
+
+/**
+ * @deprecated - Use MotionNodeDragHandlers/MotionNodeDraggableOptions
+ */
+export interface DraggableProps
+    extends MotionNodeDragHandlers,
+        MotionNodeDraggableOptions {}
 
 export type TransformTemplate = (
     transform: TransformProperties,

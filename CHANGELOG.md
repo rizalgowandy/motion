@@ -4,6 +4,86 @@ Motion adheres to [Semantic Versioning](http://semver.org/).
 
 Undocumented APIs should be considered internal and may change without warning.
 
+## [12.23.0] 2025-07-02
+
+### Added
+
+-   Add `.stop()` and `.cancel()` methods to `useDragControls()`.
+
+## [12.22.0] 2025-07-01
+
+### Added
+
+-   Allow `delayChildren` to accept `stagger()`. This enables `from` and `ease` options when staggering variant children.
+
+### Deprecated
+
+-   `staggerChildren` and `staggerDirection` options.
+
+## [12.21.0] 2025-07-01
+
+### Added
+
+-   Allow `distanceThreshold` to be configurable via `useDragControls`.
+
+## [12.20.5] 2025-07-01
+
+### Fixed
+
+-   Improve performance of projection styles by writing directly to `element.style`.
+-   Only block layout animations when window has changed width.
+
+## [12.20.4] 2025-07-01
+
+### Fixed
+
+-   Improve performance of render loop.
+-   Improve performance of types.
+
+## [12.20.3] 2025-07-01
+
+### Fixed
+
+-   Always skip layout animation check on tree mount.
+
+## [12.20.2] 2025-07-01
+
+### Fixed
+
+-   Updated `Transition` type to be more permissive.
+
+## [12.20.1] 2025-06-30
+
+### Fixed
+
+-   Updated `Target` type to match previous definition.
+
+## [12.20.0] 2025-06-30
+
+### Added
+
+-   Pass a shadow DOM root element via `AnimatePresence` `root` prop to attach `"popLayout"` styles to a different root element.
+
+## [12.19.4] 2025-06-30
+
+### Fixed
+
+-   Ensure animations are removed from scope when finished.
+
+## [12.19.3] 2025-06-27
+
+### Fixed
+
+-   Restore some deprecated types.
+-   Add `transformPerspective` to `TargetAndTransition`.
+-   Filter number-indexed and function props from `CSSStyleDeclaration`.
+
+## [12.19.2] 2025-06-27
+
+### Fixed
+
+-   React: Prevent duplicate layout animation commits within Suspense boundaries.
+
 ## [12.19.1] 2025-06-23
 
 ### Fixed
